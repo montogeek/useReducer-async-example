@@ -13,7 +13,7 @@ function App() {
       </nav>
       <div className="container-fluid">
         <div className="row">
-          <nav className="col-md-2 d-md-block bg-light sidebar">
+          <nav className="col-md-2 d-md-block bg-light sidebar mt-5">
             <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
               <span>Football data</span>
             </h6>
