@@ -1,16 +1,28 @@
 import React, { useReducer, useEffect } from "react";
 import {
+  FETCH_CONFERENCES_REQUESTED,
+  FETCH_CONFERENCES_SUCCEEDED,
+  FETCH_CONFERENCES_FAILED,
+  SET_CONFERENCE,
+  INITIAL_CONFERENCE,
   initialState as conferencesInitialState,
   reducer as conferencesReducer
-} from "../reducers/conferences";
+} from "../ducks/conferences";
+
 import {
+  RESET_PAGE,
   initialState as paginationInitialState,
   reducer as paginationReducer
-} from "../reducers/pagination";
+} from "../ducks/pagination";
+
 import {
+  FETCH_TEAMS_REQUESTED,
+  FETCH_TEAMS_SUCCEEDED,
+  FETCH_TEAMS_FAILED,
   initialState as teamsInitialState,
   reducer as teamsReducer
-} from "../reducers/teams";
+} from "../ducks/teams";
+
 import Pagination from "../components/pagination";
 
 function Teams() {
@@ -30,29 +42,29 @@ function Teams() {
   );
 
   useEffect(() => {
-    conferencesDispatch({ type: "FETCH_CONFERENCES_REQUESTED" });
+    conferencesDispatch({ type: FETCH_CONFERENCES_REQUESTED });
 
     fetch("https://api.collegefootballdata.com/conferences")
       .then(response => response.json())
       .then(data => {
         conferencesDispatch({
-          type: "FETCH_CONFERENCES_SUCCEEDED",
+          type: FETCH_CONFERENCES_SUCCEEDED,
           payload: data
         });
       })
       .catch(error => {
         conferencesDispatch({
-          type: "FETCH_CONFERENCES_FAILED",
+          type: FETCH_CONFERENCES_FAILED,
           payload: error
         });
       });
   }, []);
 
   useEffect(() => {
-    teamsDispatch({ type: "FETCH_TEAMS_REQUESTED" });
+    teamsDispatch({ type: FETCH_TEAMS_REQUESTED });
 
     const conferenceFilter =
-      conferencesState.currentConference !== "Conference"
+      conferencesState.currentConference !== INITIAL_CONFERENCE
         ? `?conference=${conferencesState.currentConference}`
         : "";
 
@@ -60,12 +72,12 @@ function Teams() {
       .then(response => response.json())
       .then(data => {
         teamsDispatch({
-          type: "FETCH_TEAMS_SUCCEEDED",
+          type: FETCH_TEAMS_SUCCEEDED,
           payload: data
         });
       })
       .catch(error =>
-        teamsDispatch({ type: "FETCH_TEAMS_FAILED", payload: error })
+        teamsDispatch({ type: FETCH_TEAMS_FAILED, payload: error })
       );
   }, [conferencesState.currentConference]);
 
@@ -92,12 +104,12 @@ function Teams() {
                 className="custom-select my-1 mr-sm-2"
                 onChange={event => {
                   conferencesDispatch({
-                    type: "SET_CONFERENCE",
+                    type: SET_CONFERENCE,
                     payload: event.target.value
                   });
 
                   paginationDispatch({
-                    type: "RESET_PAGE"
+                    type: RESET_PAGE
                   });
                 }}
               >

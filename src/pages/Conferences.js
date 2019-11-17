@@ -1,12 +1,15 @@
 import React, { useEffect, useReducer } from "react";
 import {
+  FETCH_CONFERENCES_REQUESTED,
+  FETCH_CONFERENCES_SUCCEEDED,
+  FETCH_CONFERENCES_FAILED,
   initialState as conferencesInitialState,
   reducer as conferencesReducer
-} from "../reducers/conferences";
+} from "../ducks/conferences";
 import {
   initialState as paginationInitialState,
   reducer as paginationReducer
-} from "../reducers/pagination";
+} from "../ducks/pagination";
 import Pagination from "../components/pagination";
 
 function Conferences() {
@@ -21,19 +24,19 @@ function Conferences() {
   );
 
   useEffect(() => {
-    dispatch({ type: "FETCH_CONFERENCES_REQUESTED" });
+    dispatch({ type: FETCH_CONFERENCES_REQUESTED });
 
     fetch("https://api.collegefootballdata.com/conferences")
       .then(response => response.json())
       .then(data => {
         dispatch({
-          type: "FETCH_CONFERENCES_SUCCEEDED",
+          type: FETCH_CONFERENCES_SUCCEEDED,
           payload: data
         });
       })
       .catch(error => {
         dispatch({
-          type: "FETCH_CONFERENCES_FAILED",
+          type: FETCH_CONFERENCES_FAILED,
           payload: error
         });
       });

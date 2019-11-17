@@ -1,4 +1,5 @@
 import React from "react";
+import { NEXT_PAGE, SET_PAGESIZE, PREVIOUS_PAGE } from "../ducks/pagination";
 
 function Pagination({ data, pagination, dispatch }) {
   return (
@@ -17,7 +18,7 @@ function Pagination({ data, pagination, dispatch }) {
                 aria-label="Previous"
                 onClick={() => {
                   dispatch({
-                    type: "PREVIOUS_PAGE"
+                    type: PREVIOUS_PAGE
                   });
                 }}
               >
@@ -40,7 +41,7 @@ function Pagination({ data, pagination, dispatch }) {
                 aria-label="Next"
                 onClick={() =>
                   dispatch({
-                    type: "NEXT_PAGE"
+                    type: NEXT_PAGE
                   })
                 }
               >
@@ -61,7 +62,7 @@ function Pagination({ data, pagination, dispatch }) {
             defaultValue={pagination.pageSize}
             onChange={event => {
               dispatch({
-                type: "SET_PAGESIZE",
+                type: SET_PAGESIZE,
                 payload: event.target.value
               });
             }}
