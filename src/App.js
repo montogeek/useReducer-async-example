@@ -1,25 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Teams from "./pages/Teams";
+import Conferences from "./pages/Conferences";
 
 function App() {
+  const [currentTab, setCurrentTab] = useState("teams");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
+    <>
+      <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+        <a className="navbar-brand col-sm-3 col-md-2 mr-0" href="#">
+          Challenge
         </a>
-      </header>
-    </div>
+      </nav>
+      <div className="container-fluid">
+        <div className="row">
+          <nav className="col-md-2 d-md-block bg-light sidebar">
+            <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span>Football data</span>
+            </h6>
+            <ul className="nav flex-column mb-2">
+              <li className="nav-item">
+                <a
+                  className="nav-link"
+                  href="#"
+                  onClick={() => setCurrentTab("teams")}
+                >
+                  Teams
+                </a>
+              </li>
+              <li className="nav-item">
+                <a
+                  className="nav-link"
+                  href="#"
+                  onClick={() => setCurrentTab("conferences")}
+                >
+                  Conferences
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <main role="main" className="col-md-9 ml-sm-auto col-lg-10 px-4 mt-5">
+            {currentTab === "teams" ? <Teams /> : <Conferences />}
+          </main>
+        </div>
+      </div>
+    </>
   );
 }
 
