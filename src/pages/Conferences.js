@@ -11,6 +11,7 @@ import {
   reducer as paginationReducer
 } from "../ducks/pagination";
 import Pagination from "../components/pagination";
+import ErrorMessage from "../components/errormessage";
 
 function Conferences() {
   const [state, dispatch] = useReducer(
@@ -46,6 +47,10 @@ function Conferences() {
     paginationState.currentPage * paginationState.pageSize,
     (paginationState.currentPage + 1) * paginationState.pageSize
   );
+
+  if (state.error) {
+    return <ErrorMessage />;
+  }
 
   return (
     <>
@@ -88,7 +93,7 @@ function Conferences() {
                 dispatch={paginationDispatch}
               />
             ) : (
-              "No teams found"
+              "No conferences found"
             )}
           </>
         )}

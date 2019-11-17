@@ -24,6 +24,7 @@ import {
 } from "../ducks/teams";
 
 import Pagination from "../components/pagination";
+import ErrorMessage from "../components/errormessage";
 
 function Teams() {
   const [teamsState, teamsDispatch] = useReducer(
@@ -85,6 +86,10 @@ function Teams() {
     paginationState.currentPage * paginationState.pageSize,
     (paginationState.currentPage + 1) * paginationState.pageSize
   );
+
+  if (teamsState.error) {
+    return <ErrorMessage />;
+  }
 
   return (
     <>
